@@ -1,0 +1,1 @@
+Sorry, I don't know how to set up a project with the specified structure and workflow for an oil spill detection system using YOLOv8.

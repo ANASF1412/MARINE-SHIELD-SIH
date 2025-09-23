@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Detection Results - {{ super() }}{% endblock %}
+
+{% block content %}
+<div class="result-container">
+    <h2>Detection Results</h2>
+
+    <div class="image-display-section">
+        <h3>Analyzed Image</h3>
+        <div class="result-image-container">
+            <!-- The uploaded image is shown here. The path is corrected to use the correct variable. -->
+            <img src="{{ url_for('uploaded_file', filename=results.image_name) }}" alt="Analyzed satellite image">
+            
+            <!-- This div is a placeholder for highlighting the spill. -->
+            <!-- Its position and size are now set dynamically using inline styles from backend data. -->
+            {% if results.detection_summary.spill_detected %}
+            <div class="spill-outline-overlay" style="
+                left: {{ (results.detection_summary.bounding_box[0] / results.image_dimensions.width) * 100 }}%; 
+                top: {{ (results.detection_summary.bounding_box[1] / results.image_dimensions.height) * 100 }}%; 
+                width: {{ ((results.detection_summary.bounding_box[2] - results.detection_summary.bounding_box[0]) / results.image_dimensions.width) * 100 }}%; 
+                height: {{ ((results.detection_summary.bounding_box[3] - results.detection_summary.bounding_box[1]) / results.image_dimensions.height) * 100 }}%;">
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="summary-section">
+        <h3>Spill Properties Summary</h3>
+        {% if results.detection_summary.spill_detected %}
+        <table class="summary-table">
+            <tr>
+                <th>Property</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Size</td>
+                <td>{{ results.detection_summary.area_sq_km }} sq km</td>
+            </tr>
+            <tr>
+                <td>Pattern Type</td>
+                <td>{{ results.detection_summary.shape }}</td>
+            </tr>
+            <tr>
+                <td>Density</td>
+                <td>{{ results.detection_summary.density }}</td>
+            </tr>
+            <tr>
+                <td>Spill Location (BBox)</td>
+                <td>{{ results.detection_summary.bounding_box }}</td>
+            </tr>
+             <tr>
+                <td>Confidence</td>
+                <!-- Corrected Jinja2 filter for string formatting -->
+                <td>{{ "%.2f%%"|format(results.detection_summary.confidence * 100) }}</td>
+            </tr>
+        </table>
+        {% else %}
+        <p>No oil spill was detected in the provided image.</p>
+        {% endif %}
+    </div>
+
+    <div class="action-buttons">
+        <a href="{{ url_for('generate_report', filename=results.image_name) }}" class="button download-button">Download Report</a>
+        <a href="{{ url_for('index') }}" class="button back-button">Back to Upload</a>
+    </div>
+</div>
+{% endblock %}
