@@ -1,0 +1,258 @@
+/* Base Variables & Reset */
+:root {
+    --primary: #006994;
+    --secondary: #00ACC1;
+    --accent: #4DD0E1;
+    --light: #E0F7FA;
+    --dark: #01579B;
+    --gray: #78909C;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Core Layout */
+body {
+    font-family: 'Open Sans', sans-serif;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+                url('image.jpg');  /* Updated path since we're already in static directory */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main Content Layout */
+.main-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    padding: 3rem;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+/* Header Styling */
+.header {
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  padding: 2rem;
+  color: white;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Title Styling */
+h1 {
+    color: white;
+    margin-bottom: 2rem;
+    font-size: 2.8em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Form Styling */
+form {
+  margin: 30px 0;
+}
+
+/* File Input Styling */
+input[type="file"] {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.2rem;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    width: 85%;
+    margin: 1rem auto;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+input[type="file"]:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Button Styling */
+button[type="submit"] {
+  background: #3498db;
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background: #2980b9;
+}
+
+/* Upload Area Styling */
+.upload-area {
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px dashed rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
+    padding: 3.5rem 2rem;
+    margin: 2rem auto;
+    max-width: 600px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.upload-area:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.upload-icon {
+    font-size: 4.5rem;
+    color: white;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    animation: float 3s ease-in-out infinite;
+}
+
+.upload-text {
+    font-size: 1.25rem;
+    color: white;
+    margin: 1rem 0;
+    font-weight: 500;
+}
+
+.upload-subtext {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Button Link Styling */
+.button {
+  display: inline-block;
+  padding: 12px 30px;
+  background: #3498db;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+  margin-top: 20px;
+}
+
+.button:hover {
+  background: #2980b9;
+}
+
+/* Result Container Styling */
+.result-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+/* Result Card Styling */
+.result-card {
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--dark);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Success Message Styling */
+.success-message, .error-message {
+    width: 100%;
+    max-width: 600px;
+    margin: 1rem auto;
+    padding: 1.5rem;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    animation: slideIn 0.5s ease-out;
+}
+
+.success-message {
+    background: rgba(46, 213, 115, 0.2);
+    border-left: 4px solid #2ed573;
+}
+
+.error-message {
+    background: rgba(255, 71, 87, 0.2);
+    border-left: 4px solid #ff4757;
+}
+
+.success-message h3, .error-message h3 {
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
+.success-message p, .error-message p {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Footer Styling */
+.footer {
+  text-align: center;
+  padding: 2rem;
+  background: var(--dark);
+  color: white;
+  margin-top: 4rem;
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Animation Utility Class */
+.animate-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Button Container Styling */
+.button-container {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 2rem 1rem;
+    }
+    
+    .result-container {
+        grid-template-columns: 1fr;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+}

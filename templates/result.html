@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detection Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <h1>Detection Results</h1>
+    </header>
+
+    <main class="main-content">
+        <div class="container animate-in">
+            {% if success %}
+            <div class="success-message">
+                <h3>✅ Success!</h3>
+                <p>{{ message }}</p>
+            </div>
+            {% else %}
+            <div class="error-message">
+                <h3>❌ Error</h3>
+                <p>{{ message }}</p>
+            </div>
+            {% endif %}
+            
+            <div class="result-container">
+                {% if success %}
+                <div class="result-card">
+                    <h3>Uploaded Image</h3>
+                    <p>Filename: {{ filename }}</p>
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="button-container">
+                <a href="/" class="btn">Upload Another Image</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>© 2024 Oil Spill Detection System</p>
+    </footer>
+</body>
+</html>
