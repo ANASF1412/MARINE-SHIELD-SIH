@@ -1,0 +1,7 @@
+path: D:/oil_spill_detection_app/01_Train_Val_Oil_Spill_mask  # dataset root dir
+train: train/images   # train images (relative to 'path')
+val: val/images       # val images (relative to 'path')
+test: test/images     # test images (relative to 'path')
+
+nc: 1  # number of classes
+names: ['oil_spill']  # class names

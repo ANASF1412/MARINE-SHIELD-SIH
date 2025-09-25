@@ -15,9 +15,21 @@
     <main class="main-content">
         <div class="container animate-in">
             {% if success %}
-            <div class="success-message">
-                <h3>✅ Success!</h3>
-                <p>{{ message }}</p>
+            <div class="result-container">
+                <div class="image-container">
+                    <h3>Detection Results</h3>
+                    <img src="{{ url_for('static', filename=result_image) }}" alt="Detection Result">
+                </div>
+                <div class="detections-container">
+                    <h3>Detected Oil Spills</h3>
+                    {% for detection in detections %}
+                        <div class="detection-card">
+                            <p>Type: {{ detection.class }}</p>
+                            <p>Confidence: {{ "%.2f"|format(detection.confidence) }}</p>
+                            <p>Area: {{ "%.2f"|format(detection.area) }} px²</p>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
             {% else %}
             <div class="error-message">
@@ -25,15 +37,6 @@
                 <p>{{ message }}</p>
             </div>
             {% endif %}
-            
-            <div class="result-container">
-                {% if success %}
-                <div class="result-card">
-                    <h3>Uploaded Image</h3>
-                    <p>Filename: {{ filename }}</p>
-                </div>
-                {% endif %}
-            </div>
             
             <div class="button-container">
                 <a href="/" class="btn">Upload Another Image</a>

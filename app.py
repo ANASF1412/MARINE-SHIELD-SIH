@@ -1,9 +1,13 @@
-from flask import Flask, render_template, request
+from flask import Flask, request, render_template
 from werkzeug.utils import secure_filename
 import os
+from src.models.yolo_model import OilSpillDetector
+from src.utils.dataset_validator import validate_dataset
 from config import *
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = os.path.join('static', 'uploads')
+detector = OilSpillDetector()
 
 @app.route('/')
 def index():
@@ -15,19 +19,26 @@ def upload():
         return render_template('result.html', success=False, message="No file uploaded")
     
     file = request.files['image']
-    if file.filename == '':
-        return render_template('result.html', success=False, message="No file selected")
-    
-    if file:
+    if file and file.filename.split('.')[-1].lower() in ALLOWED_EXTENSIONS:
         filename = secure_filename(file.filename)
-        # Save file logic would go here
-        success_message = "Image uploaded successfully! Ready for analysis."
-        return render_template('result.html', 
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(filepath)
+        
+        detections, result_image = detector.detect(filepath)
+        
+        return render_template('result.html',
                              success=True,
-                             message=success_message,
-                             filename=filename)
+                             original_image=f"uploads/{filename}",
+                             result_image=result_image,
+                             detections=detections)
 
 if __name__ == '__main__':
-    app.run(debug=DEBUG, host='0.0.0.0', port=5000)
-if __name__ == '__main__':
-    app.run(debug=DEBUG, host='0.0.0.0', port=5000)
+    try:
+        validate_dataset()
+        print("Dataset validation successful - starting server...")
+        os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+        os.makedirs('static/detections', exist_ok=True)
+        app.run(debug=DEBUG)
+    except Exception as e:
+        print(f"Error during startup: {e}")
+        sys.exit(1)
