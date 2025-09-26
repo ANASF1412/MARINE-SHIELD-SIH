@@ -6,3 +6,7 @@ PyYAML>=5.4.1
 pillow>=8.3.1
 torch>=1.9.0
 torchvision>=0.10.0
+tensorflow>=2.12.0
+huggingface_hub>=0.24.0
+fpdf>=1.7.2
+streamlit>=1.37.0
